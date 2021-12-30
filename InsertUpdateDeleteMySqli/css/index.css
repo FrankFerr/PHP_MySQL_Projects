@@ -1,0 +1,83 @@
+*{
+    margin: 0;
+    font-family:'Lucida Sans';
+    
+}
+
+:root{
+    --heightNavbar: 60px;
+    --yellow: rgb(228, 252, 13);
+    --black: rgb(15, 15, 15);
+    --white: rgb(230, 230, 230);
+}
+
+body{
+    background-image: url('../img/sfondo.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+#logo{
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#logoh2{
+    font-size: 2rem;
+    position: absolute;
+    margin: 10px 0 0 80px;
+    color: var(--black);
+}
+
+#page{
+    height: 120px;
+    position: relative;
+}
+
+#titolo{
+    font-size: 5rem;
+    font-weight: lighter;
+    position: absolute;
+    color: var(--yellow);
+    left: 4%;
+    top: 5%;
+    text-shadow: 5px 5px 6px black;
+}
+
+#navbarLogin{
+    background-color: var(--yellow);
+    height: var(--heightNavbar);
+    position: relative;
+}
+
+#loginBtn{
+    display: inline-block;
+    width: fit-content;
+    height: 70%;
+    position: absolute;
+    right: 130px;
+    top: calc(50% - 35%);
+    font-size: medium;
+    color: var(--white);
+    background-color: var(--black);
+    border: 3px solid var(--black);
+    border-radius: 5px;
+    padding: 0 12px;
+    cursor: pointer;
+}
+
+#registrationBtn{
+    cursor: pointer;
+    display: inline-block;
+    width: fit-content;
+    height: 70%;
+    position: absolute;
+    right: 10px;
+    top: calc(50% - 35%);
+    font-size: medium;
+    color: var(--black);
+    background-color: var(--yellow);
+    border: 3px solid var(--black);
+    border-radius: 5px;
+}

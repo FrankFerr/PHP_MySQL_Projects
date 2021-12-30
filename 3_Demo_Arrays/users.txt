@@ -1,0 +1,3 @@
+Francesco Ferrante|Programmatore|Rosso
+Mario Rossi|Designer|Verde
+Angelo Rossi|3D Artist|Giallo

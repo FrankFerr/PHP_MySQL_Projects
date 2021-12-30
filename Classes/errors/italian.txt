@@ -1,0 +1,4 @@
+1,Database non connesso!
+2,Password errata, per favore ritenta
+3,Username non trovato
+4,Non possiedi i privilegi adatti ad eseguire questo comenado

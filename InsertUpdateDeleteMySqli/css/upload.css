@@ -1,0 +1,117 @@
+body{
+    background:#252525;
+    font-family:Verdana;
+}
+
+h2{
+    color: white;
+    text-align:center;
+    background: green;
+    width: 100%;
+    margin-top: 0;
+}
+
+#logout{
+    position: fixed;
+    right: 5px;
+    top: 5px;
+    width: 80px;
+    font-size: 0.9;
+}
+
+#boxGrande{
+    display: inline-block;
+    position: relative;
+    left: calc(50% - 35%);
+    width: 70%;
+    box-shadow: 1px 1px 10px 1px;
+    /* margin: 0 auto; */
+    border: 2px solid green;
+    background: whitesmoke;
+}
+
+#boxInputFile{
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+}
+
+#cancelBtn{
+    display: inline-block;
+    width: 20%;
+    padding: 5px;
+    font-size: 1.2rem;
+    margin-left: 20px;
+    color: whitesmoke;
+    background: rgb(200,0,0);
+    border: none;
+}
+
+#confirmBtn{
+    display: inline-block;
+    width: 20%;
+    padding: 5px;
+    font-size: 1.2rem;
+    margin-right: 20px;
+    background: rgb(0, 128, 0);
+    color: whitesmoke;
+    border: none;
+}
+
+#confirmBtn:hover{
+    background: rgb(0, 78, 0);
+    cursor: pointer;
+}
+
+#cancelBtn:hover{
+    background: rgb(150, 0, 0);
+    cursor: pointer;
+}
+
+
+#boxUploadBtn{
+    text-align: center;
+    width: 50%;
+    margin: 25px auto 10px auto;
+}
+
+table{
+    text-align: start;
+    width: 90%;
+    margin: 0 auto 5px auto;
+    border-collapse: collapse;
+}
+
+th{
+    background: green;
+    color: whitesmoke;
+    padding: 10px 0 10px 0;
+}
+
+tr:hover{
+    background-color: #c5c5c5;
+}
+
+td, th{
+    border: 2px solid black;
+    padding: 5px;
+}
+
+.tdName{
+    width: 22%;
+}
+
+.tdPrice{
+    text-align: center;
+    width: 13%;
+}
+
+.tdDetail{
+    width: 60%;
+}
+
+#boxInsertSuccess{
+    text-align: center;
+    margin: 15px auto 20px auto;
+    font-size: 1.2rem;
+}

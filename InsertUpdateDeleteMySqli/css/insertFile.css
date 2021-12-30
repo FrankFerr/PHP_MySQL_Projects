@@ -1,0 +1,61 @@
+body{
+    background:#252525;
+    font-family:Verdana;
+}
+
+h2{
+    color: white;
+    text-align:center;
+    background: green;
+    width: 100%;
+    margin-top: 0;
+}
+
+#returnBtn{
+    width: fit-content;
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+#boxReturnBtn{
+    text-align: center;
+    width: 25%;
+    margin: 10px auto;
+}
+
+#logout{
+    position: fixed;
+    right: 5px;
+    top: 5px;
+    width: 80px;
+    font-size: 0.9;
+}
+
+#boxGrande{
+    display: inline-block;
+    position: relative;
+    left: calc(50% - 15%);
+    width: 30%;
+    box-shadow: 1px 1px 10px 1px;
+    /* margin: 0 auto; */
+    border: 2px solid green;
+    background: whitesmoke;
+}
+
+#boxInputFile{
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+}
+
+#uploadBtn{
+    width: 90%;
+    padding: 5px;
+    font-size: 1.2rem;
+}
+
+#boxUploadBtn{
+    text-align: center;
+    width: 20%;
+    margin: 25px auto 10px auto;
+}

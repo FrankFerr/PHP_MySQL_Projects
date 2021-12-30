@@ -1,0 +1,9 @@
+DEBUG     Checking PHPLS_ALLOW_XDEBUG
+DEBUG     The xdebug extension is not loaded
+
+[Info  - 16:59:15] 1 files total
+[Info  - 16:59:15] Indexing project for definitions and static references
+Parsing file:///d:/xampp/htdocs/Projects/BeginningPHP_Cap4/Uintersect/newfile.php
+[Info  - 16:59:15] Indexing project for dynamic references
+[Info  - 16:59:15] 0 Packages
+[Info  - 16:59:15] All 1 PHP files parsed in 0 seconds. 150 MiB allocated.

@@ -1,0 +1,89 @@
+*{
+    margin: 0;
+    font-family:'Lucida Sans';
+    
+}
+
+:root{
+    --heightNavbar: 60px;
+    --yellow: rgb(228, 252, 13);
+    --black: rgb(15, 15, 15);
+    --white: rgb(230, 230, 230);
+    --widthBoxGrande: 40%;
+}
+
+body{
+    background-image: url('../img/sfondo.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+h2{
+    color: var(--black);
+    text-align:center;
+    background: var(--yellow);
+    width: 100%;
+    margin-top: 0;
+}
+
+#boxGrande{
+    display: inline-block;
+    position: relative;
+    left: calc(50% - var(--widthBoxGrande)/2);
+    width: var(--widthBoxGrande);
+    box-shadow: 1px 1px 10px 1px;
+    top: 10px;
+    border: 2px solid var(--yellow);
+    border-radius: 5px;
+    background: var(--white);
+}
+
+#logout{
+    position: fixed;
+    right: 8px;
+    top: 8px;
+    width: 80px;
+    font-size: 0.9;
+}
+
+#boxInput{
+    text-align: center;
+    padding: 10px;
+}
+
+#boxSubmit{
+    text-align: center;
+    width: 80%;
+    margin: 10px auto;
+}
+
+#boxFetchBtn{
+    text-align: center;
+    width: 25%;
+    margin: 20px auto 10px auto;
+}
+
+#fetchBtn{
+    font-size: 0.9rem;
+}
+
+#boxInsertSuccess{
+    text-align: center;
+    margin: 15px auto 5px auto;
+    font-size: 0.9rem;
+}
+
+#submitBtn{
+    width: 140px;
+}
+
+input, textarea{
+    width: 90%;
+    padding: 5px;
+    font-size: 1.2rem;
+}
+
+textarea{
+    font-family:Verdana;
+}
