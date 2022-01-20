@@ -2,6 +2,8 @@
     echo '<head><style>body{font-family:Verdana}</style></head>';
 
     spl_autoload_register(function ($class) { require_once("../Classes/$class.class.php"); });
+    // require_once "Namespace/Class/Book.class.php";
+    use Books\Book as Book;
 
     $book1 = new Book("First", 1234567890);
 
