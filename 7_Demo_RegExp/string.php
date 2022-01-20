@@ -9,7 +9,8 @@
     // strlen() --> ritorna la lunghezza della stringa
     echo "strlen(\$str): ".strlen($str)."<br>";
 
-    // COMPARE STRING
+
+    // COMPARE STRING ----------------------------------------------------------->
     // ci sono quattro funzioni per comparare le stringhe
     echo "<br>COMPARE STRING<br><br>";
 
@@ -22,6 +23,8 @@
     echo "strcmp('caso', 'casa'): ".strcmp('caso', 'casa')."<br>";
     echo "strcmp('casa', 'caso'): ".strcmp('casa', 'caso')."<br>";
 
+
+    //----------------------------------------------------------------------------------------->
     /* strcasecmp() è simile a strcmp() solo che la comparazione e case-insensitive */
     echo "<br>strcasecmp('admin@example.com', 'ADMIN@example.com'): ";
     if(strcasecmp('admin@example.com', 'ADMIN@example.com') != 0)
@@ -30,6 +33,8 @@
         echo "sono uguali";
 
     
+
+    //-------------------------------------------------------------------------------------------->
     /* strspn() ritorna la lunghezza del primo segmento di caratteri della prima stringa che 
     si trovano anche nella seconda stringa.
     $start (opzionale) serve per decidere da dove inizia la stringa (== offset)
@@ -49,7 +54,8 @@
         echo "<br>la password non contiene solo numeri<br>";
     
 
-    // MANIPULATE CASE STRING
+        
+    // MANIPULATE CASE STRING ----------------------------------------------------------->
 
     echo "<br>strtolower('EXAMPLE'): ".strtolower('EXAMPLE');
     echo "<br>strtoupper('example'): ".strtolower('example');

@@ -54,6 +54,7 @@
 
     echo "<br>";
 
+
     //LUNGHEZZA STRINGHE ---------------------------------------------------------->
     $str = "abc";
     $str2 = "aòc";
@@ -76,6 +77,7 @@
 
 
     echo "<br>";
+    
 
     //CONVERTIRE GLI '\n' IN '<br>' ----------------------------------------------->
     $str3 = "Riga di esempio separata\nin due linee dal newline";

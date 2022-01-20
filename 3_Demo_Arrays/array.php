@@ -10,7 +10,7 @@
     */
 
 
-    //ARRAY CON CHIAVE NUMERICA
+    //ARRAY CON CHIAVE NUMERICA ---------------------------------------------------------------->
 
     //se non viene specificata, la chiave parte da 0 (come negli array di altri linguaggi di programmazione)
     $carBrands = ["Cheverolet", "Chrysler", "Ford", "Honda", "Toyota"];
@@ -29,11 +29,16 @@
 
     echo "<br><hr><br>";
 
-    //ARRAY CON CHIAVE ASSOCIATIVA
+
+
+    //ARRAY CON CHIAVE ASSOCIATIVA--------------------------------------------------------------->
 
     //è possibile usare delle stringhe come chiave per un valore per una maggiore chiarezza
     $itCity = ["RM" => "Roma", "NA" => "Napoli", "MI" => "Milano"];
     echo "\$itCity['MI']: ".$itCity['MI']."<br>";
+
+
+    //ARRAY MULTIDIMENSIONALI ------------------------------------------------------------------>
 
     //si possono creare anche array di array (array multidimensionali) per mantenere più informazioni
     //riguardo ad un dato, nell'esempio è possibile salvare più informazioni sulle città
