@@ -67,9 +67,21 @@
     echo "mb_strlen(\$str): ".mb_strlen($str)."<br><br>"; // -> 3
 
     echo "str2[0]: $str2[0], str2[1]: $str2[1], str2[2]: $str2[2], str2[3]: $str2[3]<br>";
+
     //la funzione strlen() ci restituisce la grandezza di una stringa in bytes, ecco perchè ci restituisce 4 (1 byte per 'a', 2 bytes per 'ò', 1 bytes per 'c')
     echo "strlen(\$str2): ".strlen($str2)."<br>"; // -> 4
+
     //mentre con la funzione mb_strlen() ci verrà restituito il numero dei caratteri, quindi 3
     echo "mb_strlen(\$str2): ".mb_strlen($str2)."<br>"; // -> 3
 
+
+    echo "<br>";
+
+    //CONVERTIRE GLI '\n' IN '<br>' ----------------------------------------------->
+    $str3 = "Riga di esempio separata\nin due linee dal newline";
+    
+    echo "\$str3: $str3<br>";
+
+    //la funzione nl2br() converte i '\n' in '<br>' nella stringa passata come parametro
+    echo nl2br($str3);
 ?>
