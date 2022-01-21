@@ -6,7 +6,7 @@
     echo "\$str = 'stringa di prova'";
     echo "<br><br>";
 
-    // strlen() --> ritorna la lunghezza della stringa
+    // strlen() --> ritorna la grandezza in bytes della stringa
     echo "strlen(\$str): ".strlen($str)."<br>";
 
 
@@ -62,5 +62,47 @@
     echo "<br>ucfirst('hamburgher'): ".ucfirst("hamburgher");
     echo "<br>lcfirst('HAMBURGHER'): ".lcfirst("HAMBURGHER");
     echo '<br>ucwords("this is a long sentence"): '.ucwords("this is a long sentence");
+  
+    echo "<br><br>";
     
+    //MANIPULATE STRING --------------------------------------------------->
+
+    //<------------------ Explode/Implode -------------------------------------->
+    $str = 'Ciao sono Francesco e sono un web dev';
+    
+    //divide una stringa (2° parametro) utilizzando il 1° parametro come separatore
+    //restituendo un array con gli elementi separati
+    $arr = explode(' ', $str);
+
+    echo 'explode(\' \', $str): ';
+    print_r($arr);
+    
+    echo "<br>";
+
+    //il terzo parametro indica quante separaioni si devono fare
+    $arr = explode(' ', $str, 4);
+
+    echo 'explode(\' \', $str, 4): ';
+    print_r($arr)."<br>";
+
+    echo "<br>";
+
+    $arr2 = ["Ciao", "sono", "Francesco", "e", "sono", "un", "web", "dev"];
+    //con la funzione 'implode' si uniscono gli elementi di un array in una stringa
+    //separati tra di loro con il carattere passato come primo parametro
+    $str = implode(' ', $arr2);
+    var_dump($str);
+    echo "<br><br>";
+
+
+    //<------------------- trim/ltrim/rtrim --------------------------->
+
+    //con trim() si rimuovono gli spazi bianchi dall'inizio e fine di una stringa
+    //ltrim() rimuove solo all'inizio, rtrim() rimuove solo alla fine
+    $str3 = '    Hello World!  ';
+    echo '$str3: ', var_dump($str3), '<br>';
+    echo 'trim(): ', var_dump(trim($str3)), '<br>';
+    echo 'ltrim(): ', var_dump(ltrim($str3)), '<br>';
+    echo 'rtrim(): ', var_dump(rtrim($str3)), '<br>';
+
 ?>
