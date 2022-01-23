@@ -54,31 +54,6 @@
 
     echo "<br>";
 
-
-    //LUNGHEZZA STRINGHE ---------------------------------------------------------->
-    $str = "abc";
-    $str2 = "aòc";
-
-    //Quando utilizziamo le parentesi quadre per accedere ai caratteri di una stringa in realtà
-    //stiamo accedendo ai sui bytes, infatti in str2 la 'c' la troviamo all'indice numero 3 perchè
-    //il carattere 'ò' occupa 2 bytes e non 1 come i caratteri normali
-
-    echo "str[0]: $str[0], str[1]: $str[1], str[2]: $str[2]<br>";
-    echo "strlen(\$str): ".strlen($str)."<br>"; // -> 3
-    echo "mb_strlen(\$str): ".mb_strlen($str)."<br><br>"; // -> 3
-
-    echo "str2[0]: $str2[0], str2[1]: $str2[1], str2[2]: $str2[2], str2[3]: $str2[3]<br>";
-
-    //la funzione strlen() ci restituisce la grandezza di una stringa in bytes, ecco perchè ci restituisce 4 (1 byte per 'a', 2 bytes per 'ò', 1 bytes per 'c')
-    echo "strlen(\$str2): ".strlen($str2)."<br>"; // -> 4
-
-    //mentre con la funzione mb_strlen() ci verrà restituito il numero dei caratteri, quindi 3
-    echo "mb_strlen(\$str2): ".mb_strlen($str2)."<br>"; // -> 3
-
-
-    echo "<br>";
-    
-
     //CONVERTIRE GLI '\n' IN '<br>' ----------------------------------------------->
     $str3 = "Riga di esempio separata\nin due linee dal newline";
     
