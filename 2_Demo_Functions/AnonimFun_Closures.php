@@ -23,7 +23,7 @@
     }
 
     $prova = "myEcho";
-    $prova();
+    $prova(); // stampa -> "Test closure<br>"
 
     echo "<br><hr><br>";
 //------------------------------------------------------->
@@ -34,11 +34,12 @@
     echo "\$num = 15<br><br>";
 
     //La variabile $num esterna alla funzione e quella interna sono due variabili diverse
-    //perchè la prima non è visibile dalla funzione. Per renderlo visibile, e quindi farlo rientrare 
-    //nello scope della funzione, si usa la parola chiave "use"(vedi il prossimo esempio)
+    //perchè la prima non è visibile dalla funzione. Per renderlo visibile, e quindi farlo
+    //rientrare nello scope della funzione, si usa la parola chiave "use"(vedi il prossimo esempio)
 
     $extern1 = function(){
-        $num += 100;
+        //$num += 100; -> $num non viene vista all'esterno, bisogna ridefinirla
+        $num = 100;
         echo "\$extern1's \$num = $num<br>";
     };
     $extern1();
