@@ -77,7 +77,7 @@
 
     end($regioni2);
 
-    while($value = prev($regioni3))
+    while($value = prev($regioni2))
     {
         echo "$value<br>";
     }

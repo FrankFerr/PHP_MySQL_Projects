@@ -2,8 +2,8 @@
     echo '<head><style>body, pre{font-family:Verdana;}</style></head>';
 
     /*
-    *   array_reverse() ritorna una copia dell'array passato come argomento ordinato al contrario
-    *   settando il secondo parametro a true viene mantenuto il valore della chiave che aveva un
+    *   array_reverse() ritorna una copia dell'array passato come argomento ordinato al contrario.
+    *   Settando il secondo parametro a true viene mantenuto il valore della chiave che aveva un
     *   determinato valore prima dell'ordinamento
     */
 
@@ -93,7 +93,7 @@
     natcasesort($image3);
     echo "image sort():<br><pre>".print_r($image, true)."</pre><br>";
     echo "image2 natsort():<br><pre>".print_r($image2, true)."</pre><br>";
-    echo "image3 natsort():<br><pre>".print_r($image3, true)."</pre><br>";
+    echo "image3 natcasesort():<br><pre>".print_r($image3, true)."</pre><br>";
 
     echo "<br><hr><br>";
 
@@ -119,7 +119,7 @@
         //se le due date sono uguali non fare niente
         if($d1 == $d2) return 0;
 
-        //divido le datew in tre variabili diverse
+        //divido le date in tre variabili diverse
         list($d1month, $d1day, $d1year) = explode('-', $d1);
         list($d2month, $d2day, $d2year) = explode('-', $d2);
 
