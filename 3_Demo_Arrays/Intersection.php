@@ -61,7 +61,7 @@
 
     /*
     *   le funzioni array_diff(), array_diff_key(), array_udiff(), array_diff_ukey(), array_diff_assoc(), array_udiff_assoc(),
-    *   array_diff_uassoc(), array_udiff,uassoc() restituiscono un array contenente tutti i valori/chiavi che compaiono
+    *   array_diff_uassoc(), array_udiff_uassoc() restituiscono un array contenente tutti i valori/chiavi che compaiono
     *   nel primo array passato come argomento e non compaiono in tutti gli altri array passati. Per il resto si comportano
     *   come le rispettive "intersect"
     */
