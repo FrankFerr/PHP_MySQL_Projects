@@ -46,7 +46,8 @@
             //recupero dei dati dal database come array
             $customer = $result->fetch_array(MYSQLI_ASSOC);
 
-            //controlla se la password è corretta
+            //controlla se la password inserita corrisponde alla password (hash) nel database
+            //collegato a quell'username
             if(password_verify($pass, $customer['password']))
             {
                 //controlla se è un account attivo, se non lo è viene reindirizzato ad un reminder dell'attivazione
