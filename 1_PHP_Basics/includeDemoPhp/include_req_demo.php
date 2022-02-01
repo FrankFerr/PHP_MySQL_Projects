@@ -1,17 +1,19 @@
 <?php
     /*
-     * - include(filePath/fileName) == include "filePath/fileName": inserisce un determinato file nella posizione in cui viene chiamata
-     *                                                              include(). Nell'esempio il form creato in test.html verrà rappresentato
-     *                                                              tra i primi due paragrafi. 
+     * - include(filePath/fileName) == include "filePath/fileName": inserisce un
+     * determinato file nella posizione in cui viene chiamata include(). Nell'esempio
+     * il form creato in test.html verrà rappresentato tra i primi due paragrafi. 
      * 
-     * - include_once(filePath/fileName) == include_once "filePath/fileName": controlla se il file è stato già incluso una volta, sempre con
-     *                                                                        include_once(), in modo da non includerlo di nuovo. Ha le stesse
-     *                                                                        funzionalità di include
+     * - include_once(filePath/fileName) == include_once "filePath/fileName": controlla
+     * se il file è stato già incluso una volta, sempre con include_once(), in modo
+     * da non includerlo di nuovo. Ha le stesse funzionalità di include
      * 
-     * - require(filePath/fileName) == require "filePath/fileName": al contrario di include(), che se non trova il file da inserire lo script 
-     *                                                              continua lo stesso, con require() l'esecuzione si blocca
+     * - require(filePath/fileName) == require "filePath/fileName": al contrario di
+     * include(), che se non trova il file da inserire lo script continua lo stesso,
+     * con require() l'esecuzione si blocca
      * 
-     * - require_once(filePath/fileName) == require_once "filePath/fileName": lo stesso di require() ma si accerta di includere il file una sola volta
+     * - require_once(filePath/fileName) == require_once "filePath/fileName": lo stesso
+     * di require() ma si accerta di includere il file una sola volta
      */
 
     echo '<body style="font-family:Verdana">';
