@@ -20,14 +20,37 @@
 
     $intersect = array_intersect($num1, $num2, $num3);
 
-    echo '<table><tr><td>$num1:<br><pre>'.print_r($num1, true).'</pre></td><td>$num2:<br><pre>'.print_r($num2, true).'</pre></td>'.
-         '<td>$num3:<br><pre>'.print_r($num3, true).'</pre></td></tr></table>';
+    echo '<table><tr><td>$num1:<br><pre>'.print_r($num1, true).'</pre></td>';
+    echo '<td>$num2:<br><pre>'.print_r($num2, true).'</pre></td>';
+    echo '<td>$num3:<br><pre>'.print_r($num3, true).'</pre></td></tr></table>';
 
     echo "\$intersect:<br><pre>".print_r($intersect, true)."<pre>";
 
     echo "<br><hr><br>";
 
-    //-------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------
+
+    //closure che verrà passata alla funzione array_uintersetc() come argomento
+    //che decide come intersecare gli array
+    $checkEven = function ($a, $b){
+          if($a % 2 == 0 && $b % 2 == 0)
+               return $a <=> $b;
+
+          return 1;
+     };
+
+    $intersectEven = array_uintersect($num1, $num2, $num3, $checkEven);
+
+    echo '<table><tr><td>$num1:<br><pre>'.print_r($num1, true).'</pre></td>';
+    echo '<td>$num2:<br><pre>'.print_r($num2, true).'</pre></td>';
+    echo '<td>$num3:<br><pre>'.print_r($num3, true).'</pre></td></tr></table>';
+
+    echo "\$intersectEven:<br><pre>".print_r($intersectEven, true)."<pre>";
+
+    echo "<br><hr><br>";
+
+    //----------------------------------------------------------------------------------------------
+
 
     /*
     *   array_intersect_assoc() funziona allo stesso modo di array_intersect() solo che la prima prende
