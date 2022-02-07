@@ -10,7 +10,7 @@
 
         //CONSTRUCTORS
 
-        public function __construct($title, $isbn)
+        public function __construct(string $title, string $isbn)
         {
             $this->title = $title;
             $this->setIsbn($isbn);
@@ -24,7 +24,8 @@
 
         public function setCopies($copies)
         {
-            $this->copies = $copies;
+            if($copies > 0)
+                $this->copies = $copies;
         }
 
         public function getCopies()
@@ -52,10 +53,13 @@
         //title
         public function setTitle($title)
         {
-            $this->title = $title;
+            if($title !== "")
+                $this->title = $title;
         }
 
-        public function getTitle() { return $this->title;}
+        public function getTitle() { return $this->title; }
+
+        
 
         // TO STRING
         public function __toString()

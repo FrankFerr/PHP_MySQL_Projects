@@ -26,8 +26,8 @@
         }
 
         //GETTER & SETTER, per le proprietà non inserite nella definizione della classe è possibile 
-        //definirle quando ci servono, ad esempio le proprietà $wage alla riga 9 e $city alla riga 14
-        //nel file demoClass.php non sono definite nella classe ma dopo quell'assegnazione vengono
+        //definirle quando ci servono, ad esempio le proprietà $wage alla riga 7 e $city alla riga 12
+        //nel file 4_Demo_OOP\Class_Demo\demoClass.php non sono definite nella classe ma dopo quell'assegnazione vengono
         //aggiunte ed è possibile recuperarle come una qualsiasi proprietà di quella classe. Queste
         //tipo di proprietà che nella definizione della classe non c'erano passano per due metodi 
         //__set($nomeVariabile, $valoreVariabile) quando avviene l'assegnazione e __get($varName) quando
