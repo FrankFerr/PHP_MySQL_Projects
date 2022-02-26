@@ -10,6 +10,7 @@
     catch(Exception $exc)
     {
         echo "Error (file: ".$exc->getFile()." at line: ".$exc->getLine().") ".$exc->getMessage();
+
     }
     finally
     {

@@ -43,11 +43,16 @@
         function __destruct(){ echo '<br>Person2 destruct<br>';}
     }
 
-    class Person3 extends Person2
+    //con la parola chiave 'final' si può indicare che quella classe,
+    //in questo caso Person3, non può essere ereditata
+    final class Person3 extends Person2
     {
         public $eta;
 
-        public function info() { echo 'Person3 obj';}
+        //mentre indicare un metodo come 'final' evita la sovrascrittura
+        //(override) da parte di classe figlie 
+        final public function info() { echo 'Person3 obj';}
+
         function __construct($name, $eta)
         {
             parent::__construct($name);

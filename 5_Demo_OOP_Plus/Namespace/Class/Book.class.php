@@ -8,7 +8,8 @@
 
         private $title;
         private $isbn;
-        private $copies;
+        private static $copies = 0;
+
 
 
         //CONSTRUCTORS
@@ -17,6 +18,9 @@
         {
             $this->title = $title;
             $this->setIsbn($isbn);
+
+            self::$copies++;
+            
         }
 
 
@@ -25,14 +29,9 @@
         
         //copies
 
-        public function setCopies($copies)
+        public static function getCopies()
         {
-            $this->copies = $copies;
-        }
-
-        public function getCopies()
-        {
-            return $this->copies;
+            return self::$copies;
         }
 
 
@@ -63,7 +62,7 @@
         // TO STRING
         public function __toString()
         {
-            return sprintf("Title: %s<br>isbn: %s<br>sold: %d", $this->title, $this->isbn, $this->copies);
+            return sprintf("Title: %s<br>isbn: %s<br>sold: %d", $this->title, $this->isbn, self::$copies);
         }
 
         //__clone() è una funzione in cui possiamo descrivere la procedura di clonazione di un oggetto

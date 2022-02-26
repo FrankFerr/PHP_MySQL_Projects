@@ -10,6 +10,28 @@
 
     require_once "utility.php";
 
+    //controlla se è stato premuto il bottone 'insert value' per inserire un nuovo prodotto nel database
+    if(isset($_POST['submit']))
+    {
+        //connessione al database
+        $mysqli = connectToDb();
+
+        //recupero e sanificazione delle informazioni inserite sul prodotto
+        $name = $mysqli->real_escape_string(validationInput($_POST['prodName']));
+        $price = str_replace(",", ".", $_POST['prodPrice']);
+        $detail = $mysqli->real_escape_string(validationInput($_POST['prodDetail']));
+
+        //scrittura query per l'inserimento del prodotto
+        $query = "INSERT INTO products(name, price, detail) VALUES('$name', $price, '$detail')";
+
+        //controlla il risultato della query mostrando un messaggio a schermo
+        if(!$mysqli->query($query))
+        {
+            $error = true;
+        }
+
+        $mysqli->close();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -56,37 +78,20 @@
         </div>
 
 <?php
-    //controlla se è stato premuto il bottone 'insert value' per inserire un nuovo prodotto nel database
-    if(isset($_POST['submit']))
+    
+    //controlla il risultato della query mostrando un messaggio a schermo
+    if($error)
     {
-        //connessione al database
-        $mysqli = connectToDb();
-
-        //recupero e sanificazione delle informazioni sul prodotto inserite 
-        $name = $mysqli->real_escape_string(validationInput($_POST['prodName']));
-        $price = str_replace(",", ".", $_POST['prodPrice']);
-        $detail = $mysqli->real_escape_string(validationInput($_POST['prodDetail']));
-
-        //scrittura query per l'inserimento del prodotto
-        $query = "INSERT INTO products(name, price, detail) VALUES('$name', $price, '$detail')";
-
-        //controlla il risultato della query mostrando un messaggio a schermo
-        if(!$mysqli->query($query))
-        {
-            echo <<<HTML
-            <div id='boxInsertSuccess'>Error with database, please try again later</div>
-            HTML;
-        }
-        else
-        {
-            echo <<<HTML
-            <div id="boxInsertSuccess">insert successful</div>
-            HTML;
-        }
-
-        $mysqli->close();
-        
+        echo <<<HTML
+        <div id='boxInsertSuccess'>Error with database, please try again later</div>
+        HTML;
     }
+    else
+    {
+        echo <<<HTML
+        <div id="boxInsertSuccess">insert successful</div>
+        HTML;
+    }    
 ?>
     </div>
 

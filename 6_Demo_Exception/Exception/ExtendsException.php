@@ -1,11 +1,11 @@
 <?php
     echo '<head><style>body{font-family:Verdana}</style></head>';
 
-    require "../Classes/MyException.class.php";
+    require_once "../../Classes/MyException.class.php";
 
-    define("PW_CORRECT", 19061997);
+    define("PW_CORRECT", '19061997');
 
-    $password = 19061;
+    $password = '19061';
 
     try
     {

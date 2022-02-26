@@ -10,6 +10,7 @@
         private $id;
         private static $numEmployee;
 
+
         //CONSTRUCTORS
         
         public function __construct(string $name)
@@ -18,6 +19,7 @@
             $this->setName($name);
             
             self::$numEmployee++;
+            
         }
 
 

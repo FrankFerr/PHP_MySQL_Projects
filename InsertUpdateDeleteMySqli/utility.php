@@ -11,8 +11,10 @@
         $mysqli = new mysqli(HOSTNAME, USERNAME, PASSWORD, DATABASE);
 
         // controllo errori connessione
-        if($mysqli->connect_errno) exit(messageHtml("Some error occurred", "there are some problem with login, please try later", "index.html"));
-        else return $mysqli;
+        if($mysqli->connect_errno)
+            exit(messageHtml("Some error occurred", "there are some problem with login, please try later", "index.html"));
+        else
+            return $mysqli;
     }
 
     function validationInput(string $data)

@@ -34,7 +34,7 @@
         //legge l'intero file 
         $fileString = fread($file, $_FILES['upload']['size']);
         
-        //i prodotti vengono separati da un doppio spazio quindi con explode("\n\r\n"..., recupea un array con i dati dei prodotti
+        //i prodotti vengono separati da un doppio spazio quindi con explode("\n\r\n"..., recupera un array con i dati dei prodotti
         $records = explode("\n\r\n", $fileString);
 
         //conta quanti elementi sono stati trovati

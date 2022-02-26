@@ -1,0 +1,67 @@
+*{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', Geneva, Verdana, sans-serif;
+}
+
+#asterisco{
+    font-size: small;
+}
+
+#divnome, #divemail{
+    margin: 10px 0 10px 0;
+}
+
+#nome{
+    font-size: 20px;
+}
+
+#email{
+    font-size: 20px;
+}
+
+#divcamere{
+    width: fit-content;
+}
+
+#psesso{
+    display: inline-block;
+}
+
+#pdispositivi{
+    display: inline-block;
+}
+
+#submit{
+    padding: 4px 15px;
+}
+
+#submit:hover{
+    background-color: green;
+    color: whitesmoke;
+    border-radius: 2px;
+}
+
+#cancella{
+    padding: 4px 15px;
+}
+
+#cancella:hover{
+    background-color: red;
+    color: whitesmoke;
+    border-radius: 2px;
+}
+
+#error{
+    background-color: rgb(204, 32, 32);
+    color: rgb(240, 240, 240);
+    padding: 9px 14px;
+    border-radius: 4px;
+    max-width: fit-content;
+}
+
+#success{
+    background-color: rgb(23, 172, 30);
+    color: rgb(240, 240, 240);
+    padding: 9px 14px;
+    border-radius: 4px;
+    max-width: fit-content;
+}
