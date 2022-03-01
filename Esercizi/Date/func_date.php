@@ -69,15 +69,59 @@ U -> Seconds since the Unix Epoch (January 1 1970 00:00:00 GMT)	See also time()
 
 
     echo 'Esempio date() con timestamp:<br><br>';
-    //sta a significare, in secondi, il tempo trascorso dalla 'Unix Epoc' (01/01/1970 - 00:00:00)
+    //il secondo argomentosta a significare, in secondi, il tempo trascorso
+    //dalla 'Unix Epoc' (01/01/1970 - 00:00:00)
     echo date('d-m-Y l / H:i:s', 5);
 
     echo '<br><br><hr><br>';
 
 
     echo 'Esempio date() con timestamp 2:<br><br>';
-    //time() restituisce l'orario attuale in secondi e gli viene aggiunto 3600 secondi (1 ora)
+    //time() restituisce i secondi passati dalla 'Epoca Unix' (01/01/1970 - 00:00:00) 
+    //al momento della chiamata della funzione e gli viene aggiunto 3600 secondi (1 ora)
     echo date('d-m-Y l / H:i:s', time() + 3600);
 
     echo '<br><br><hr><br>';
+
+    //ESEMPIO ---------------------------------------------------->
+
+    try
+    {
+        $PDOconn = new PDO('mysql:host=localhost;dbname=phptest', 'francesco', 'kekko9719', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]);
+    }
+    catch(PDOException $exc)
+    {
+        $exc->getMessage();
+    }
+
+    $nome = 'Francesco';
+    $cognome = 'Ferrante';
+    $iscrizione = time();
+
+    //INSERISCO UN NUOVO UTENTE MEMORIZZANDO ANCHE IL MOMENTO DELLA REGISTRAZIONE
+    //CON UN TIMESTAMP (Secondi passati dalla 'Epoca Unix' ad una determinata data)
+
+    /*
+    $st = $PDOconn->query("INSERT INTO User(nome, cognome, sign_up) VALUES ('$nome', '$cognome', $iscrizione)");
+
+    if(!$st)
+        echo '<br>Errore nell\'inserimento<br>';
+    else
+        echo '<br>Inserimento avvenuto con successo<br>';
+    */
+
+    $st = $PDOconn->query('SELECT * FROM User');
+
+    if($st->rowCount() > 0)
+    {
+        $records = $st->fetchAll();
+
+        foreach($records as $record)
+        {
+            $iscrizione = date('d-m-Y H:i:s', $record['sign_up']);
+
+            echo "Nome: {$record['nome']}<br>Cognome: {$record['cognome']}<br>Iscrizione: $iscrizione";
+        }
+    }
+
 ?>
