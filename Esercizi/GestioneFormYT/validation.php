@@ -103,7 +103,7 @@ function upload(&$status)
     define('SIZE_MAX', 300000);
     define('UPLOAD_DIR', 'upload/');
 
-    $name = $_FILES['allegato']['name'];
+    $name = htmlspecialchars($_FILES['allegato']['name']);
     $tmp_folder = $_FILES['allegato']['tmp_name'];
     $error = $_FILES['allegato']['error'];
     $size = $_FILES['allegato']['size'];

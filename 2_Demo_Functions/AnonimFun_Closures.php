@@ -3,7 +3,7 @@
 
 
     /*
-     *  CLOSURE (ANONIMOUS FUNCTION)
+     *  LAMBDA (ANONIMOUS FUNCTION)
      */
 
     $closure = function(){
@@ -13,38 +13,33 @@
     $closure();
 
     echo "<br><hr><br>";
+
+
 //------------------------------------------------------>
 
-    $str = "Hello";
-
-    function myEcho()
+    function myEcho($nome)
     {
-        echo "Test closure<br>";
+        echo "Hello World from $nome<br>";
     }
 
     $prova = "myEcho";
-    $prova(); // stampa -> "Test closure<br>"
+    $prova('Francesco'); 
 
     echo "<br><hr><br>";
+
+
 //------------------------------------------------------->
 
-    //CLOSURE WITH EXTERN VARIABLE
+    //CLOSURE (WITH EXTERN VARIABLE)
 
     $num = 15;
     echo "\$num = 15<br><br>";
 
+
     //La variabile $num esterna alla funzione e quella interna sono due variabili diverse
     //perchè la prima non è visibile dalla funzione. Per renderlo visibile, e quindi farlo
-    //rientrare nello scope della funzione, si usa la parola chiave "use"(vedi il prossimo esempio)
+    //rientrare nello scope della funzione, si usa la parola chiave "use"
 
-    $extern1 = function(){
-        //$num += 100; -> $num non viene vista all'esterno, bisogna ridefinirla
-        $num = 100;
-        echo "\$extern1's \$num = $num<br>";
-    };
-    $extern1();
-
-    echo "extern \$num = $num<br><br>";
 
     //BY VALUE
     $extern2 = function() use ($num){
@@ -55,6 +50,7 @@
 
     echo "extern \$num = $num<br><br>";
 
+
     //BY REFERENCE
     $extern3 = function() use (&$num){
         $num += 100;
@@ -62,5 +58,37 @@
     };
     $extern3();
 
-    echo "extern \$num = $num<br><br>"
+    echo "extern \$num = $num<br><br>";
+
+    echo "<br><hr><br>";
+
+
+    //---------------------------------------------------------------------->
+
+    //ESEMPIO CLOSURE (utile quando viene usata come callback)
+
+    $arr = [10, 4, 6, 8];
+    $pot = 4;
+
+    array_walk($arr, function($elemento) use($pot){
+        echo "Number: $elemento  Exponent: $pot == ".pow($elemento, $pot)."<br>";
+    });
+
+    echo "<br><hr><br>";
+
+
+    //---------------------------------------------------------------------->
+
+    //FUNZIONI ANONIME SELF-EXCECUTING (PHP 7), vengono chiamate automaticamente quando
+    //lo script arriva a loro
+
+    (function(){
+        echo 'Hello from an self-excecuting anonymous function<br><br>';
+    })();
+
+    (function($nome){ echo "Hello from $nome<br><br>"; })('Francesco');
+
+    (function($num, $exp){
+        echo "Number: $num  Exponent: $exp == ".pow($num, $exp)."<br>";
+    })(14, 5);
 ?>
