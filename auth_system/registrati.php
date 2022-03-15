@@ -1,15 +1,10 @@
 <?php
 require_once './include/default.php';
 
-if($_POST){
+$result = "";
 
-    try{
-        $auth->registraNuovoUtente($_POST);
-    }
-    catch(Exception $exc){
-        echo "<p><strong>{$exc->getMessage()}</strong></p>";
-    }
-    
+if($_POST){
+    $result = $auth->registraNuovoUtente($_POST);
 }
 ?>
 
@@ -35,7 +30,9 @@ if($_POST){
     <a type='button' class='btn btn-info' href="login.php">Login</a>
     <hr>
 
-    <form class="" action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
+    <?php echo "<p><strong>$result</strong></p>"; ?>
+
+    <form class="" action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
 
         <div class="form-group">
             <input type="text" class="form-control" name="username" placeholder="Username *">

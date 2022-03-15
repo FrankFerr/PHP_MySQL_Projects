@@ -11,90 +11,108 @@ class AuthSys
     }
 
 
-    public function registraNuovoUtente($post) {
-
-        /* CONTROLLI
-         * [ok] -> username solo numeri e lettere, da 8 a 12 caratteri, non sia già presente
-         * [ok] -> password lettere, numeri e alcuni caratteri speciali, minimo 8 caratteri
-         * [ok] -> password e conferma devono coincidere
-         * [ok] -> email valida
-         * [ok] -> nome più di 3 caratteri
-        */
-
-        $username = trim($post['username']);
-        $password = trim($post['password']);
-        $cpassword = trim($post['cpassword']);
-        $email = trim($post['email']);
-        $nome = trim($post['nome']);
-
-
-        // USERNAME ---------------------------------------------------------->
-        if( !(ctype_alnum($username) && mb_strlen($username) >= 8 && mb_strlen($username) <= 15) ){
-            throw new Exception('Username non valida');
-        }
-
-        try{
-            $query = 'SELECT * FROM Utenti WHERE username = :username';
-            $st = $this->PDO->prepare($query);
-            
-            $st->bindParam(':username', $username, PDO::PARAM_STR);
-            $st->execute();
-        }
-        catch(PDOException $exc){
-            echo 'Errore controllo username nel db';
-        }
+    //Controllo esistenza username
+    public function usernameExists($username){
+        $query = 'SELECT * FROM Utenti WHERE username = :username';
+        $st = $this->PDO->prepare($query);
+        
+        $st->bindParam(':username', $username, PDO::PARAM_STR);
+        $st->execute();
 
         if($st->rowCount() > 0){
-            throw new Exception('Username già presente');
+            return TRUE;
+        }
+
+        return FALSE;
+    }
+
+
+    //Controllo correttezza moduli
+    public function checkModules($post){
+
+        // USERNAME ---------------------------------------------------------->
+        if( !(ctype_alnum($post['username']) && mb_strlen($post['username']) >= 8 && mb_strlen($post['username']) <= 15) ){
+            throw new Exception('Username non valida');
         }
 
 
         // PASSWORD ---------------------------------------------------------->
-        if(!preg_match("/^[a-zA-Z0-9!\$#-@_]{8,14}$/", $password)){
+        if(!preg_match("/^[a-zA-Z0-9!\$#-@_]{8,14}$/", $post['password'])){
             throw new Exception('Password non valida');
         }
 
 
         // CONFERMA PASSWORD ------------------------------------------------->
-        if(strcmp($password, $cpassword) !== 0){
+        if(strcmp($post['password'], $post['cpassword']) !== 0){
             throw new Exception('Le password inserite sono diverse');
         }
 
 
         // EMAIL ------------------------------------------------------------>
-        if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+        if(!filter_var($post['email'], FILTER_VALIDATE_EMAIL)){
             throw new Exception('Email non valida!');
         }
 
 
         // NOME ------------------------------------------------------------->
-        if(mb_strlen($nome) < 3){
+        if(mb_strlen($post['nome']) < 3){
             throw new Exception('Nome inserito non valido!');
         }
-
-
-        // INSERIMENTO NEL DATABASE ------------------------------------------>
-        try{
-            $pw_hash = password_hash($password, PASSWORD_DEFAULT);
-
-            $query = "INSERT INTO Utenti(username, password, nome, email) VALUES (:username, :password, :nome, :email)";
-            $st = $this->PDO->prepare($query);
-
-            $st->bindParam(':username', $username, PDO::PARAM_STR);
-            $st->bindParam(':password', $pw_hash, PDO::PARAM_STR);
-            $st->bindParam(':nome', $nome, PDO::PARAM_STR);
-            $st->bindParam(':email', $email, PDO::PARAM_STR);
-
-            $st->execute();
-        }
-        catch(PDOException $exc){
-            echo 'Errore inserimenton nuovo utente';
-        }
-
-        return TRUE;
-
     }
 
+
+    //Aggiunta nuovo utente nel database
+    public function addUser($post, $pw_hash){
+
+        $query = "INSERT INTO Utenti(username, password, nome, email) VALUES (:username, :password, :nome, :email)";
+        $st = $this->PDO->prepare($query);
+
+        $st->bindParam(':username', $post['username'], PDO::PARAM_STR);
+        $st->bindParam(':password', $pw_hash, PDO::PARAM_STR);
+        $st->bindParam(':nome', $post['nome'], PDO::PARAM_STR);
+        $st->bindParam(':email', $post['email'], PDO::PARAM_STR);
+
+        $st->execute();
+    }
+
+
+    //gestione registrazione nuovo utente
+    public function registraNuovoUtente($post) {
+
+        foreach ($post as $key => $value) {
+            $post[$key] = trim($value);
+        }
+
+
+        try{
+
+            //CONTROLLO ESISTENZA USERNAME ------------------------------------------------->
+            if($this->usernameExists($post['username'])) {
+                return 'L\'username inserito esiste già!';
+            }
+
+            // CONTROLLO CORRETTAZZA CAMPI INSERITI ---------------------------------------->
+            $this->checkModules($post);
+
+            // INSERIMENTO NEL DATABASE ---------------------------------------------------->
+            $pw_hash = password_hash($post['cpassword'], PASSWORD_DEFAULT);
+
+            $this->addUser($post, $pw_hash);
+
+        }
+        catch(PDOException $exc){
+            return 'Sembra esserci qualche problema, riprova più tardi.';
+        }
+        catch(Exception $e){
+            return $e->getMessage();
+        }
+
+
+        return 'Sei stato registrato correttamente!';
+    }
+
+
+    //Controllo login
     public function login(string $username, string $password) {
 
         // CONTROLLO REGISTRAZIONE ------------------------------------->
@@ -142,6 +160,8 @@ class AuthSys
 
     }
 
+
+    //Effettua il ogout
     public function logout() {
         try{
             $query = 'DELETE FROM UtentiLoggati WHERE session_id = :sessionId';
@@ -159,6 +179,8 @@ class AuthSys
         return TRUE;
     }
 
+
+    //Controllo login utente registrato
     public function utenteLoggato() {
         try{
             $query = 'SELECT * FROM UtentiLoggati WHERE session_id = :session';
