@@ -3,11 +3,12 @@
 class AuthSys
 {
     private PDO $PDO;
+    private PHPMailer\PHPMailer\PHPMailer $mail;
 
-
-    public function __construct($PDOconn)
+    public function __construct($PDOconn, $mail)
     {
         $this->PDO = $PDOconn;
+        $this->mail = $mail;
     }
 
 
@@ -62,9 +63,9 @@ class AuthSys
 
 
     //Aggiunta nuovo utente nel database
-    public function addUser($post, $pw_hash, $token){
+    public function addUser($post, $pw_hash, $token): int {
 
-        $query = "INSERT INTO Utenti(username, password, nome, email) VALUES (:username, :password, :nome, :email, :token)";
+        $query = "INSERT INTO Utenti(username, password, nome, email, token) VALUES (:username, :password, :nome, :email, :token)";
         $st = $this->PDO->prepare($query);
 
         $st->bindParam(':username', $post['username'], PDO::PARAM_STR);
@@ -74,6 +75,45 @@ class AuthSys
         $st->bindParam(':token', $token, PDO::PARAM_STR);
 
         $st->execute();
+
+        return $this->PDO->lastInsertId();
+    }
+
+
+    //Invio email attivazione
+    public function invioEmailAttivazione($toEmail, $link){
+        $mail = &$this->mail;
+
+        //Indica a PHPMailer di usare la sua classe SMTP per l'invio e non la funzione mail di PHP
+        $mail->isSMTP();
+        //Per l'autenticazione SMTP con username e password
+        $mail->SMTPAuth = true;
+        //Imposta il protocollo ssl
+        $mail->SMTPSecure = $mail::ENCRYPTION_SMTPS;
+        //Server smtp
+        $mail->Host = 'smtp.gmail.com';
+        //Porta del server smtp
+        $mail->Port = 465;
+        //il tipo di messaggio da inviare
+        $mail->isHTML(true);
+        //Username e Password account gmail
+        $mail->Username = 'ferrantefrancesco878@gmail.com';
+        $mail->Password = 'kekko97gokart';
+        //Setta l'email e il nome di chi la manda
+        $mail->setFrom('ferrantefracnesco878@gmail.com', 'MySite');
+        //A chi inviare l'email
+        $mail->AddAddress($toEmail);
+        //Oggetto email
+        $mail->Subject = 'Attivazione account';
+        //Corpo email
+        $mail->Body = "<h3>Conferma della registrazione dell'account</h3><p>Clicca sul seguente link per confermare l'account: <a href='$link'>conferma registrazione</a></p>";
+
+        //Invio email
+        if(!$mail->send()){
+            throw new Exception($mail->ErrorInfo);
+        }
+
+        return TRUE;
     }
 
 
@@ -99,8 +139,13 @@ class AuthSys
             $pw_hash = password_hash($post['cpassword'], PASSWORD_DEFAULT);
             $token = bin2hex(random_bytes(32));
 
-            $this->addUser($post, $pw_hash, $token);
+            //PREPARAZIONE EMAIL ATTIVAZIONE
+            $id = $this->addUser($post, $pw_hash, $token);
+            $dataEmail = ['id' => $id, 'token' => $token];
+            $link = "http://localhost/Projects/auth_system/attivazione.php?".http_build_query($dataEmail);
 
+            //INVIO EMAIL
+            $this->invioEmailAttivazione($post['email'], $link);
         }
         catch(PDOException $exc){
             return 'Sembra esserci qualche problema, riprova più tardi.';
@@ -203,6 +248,25 @@ class AuthSys
         return TRUE;
     }
     
+
+    public function confermaRegistrazione($id, $token){
+        try{
+            $query = 'SELECT id FROM Utenti WHERE id = :id AND token = :token';
+            $st = $this->PDO->prepare($query);
+
+            $st->bindParam(':id', $id, PDO::PARAM_INT);
+            $st->bindParam(':token', $token, PDO::PARAM_STR);
+
+            if($st->rowCount() == 0) return FALSE;
+
+            $this->PDO->query("UPDATE Utenti SET active = 1 WHERE id = $id");
+
+            return TRUE;
+        }
+        catch(PDOException $exc){
+            return FALSE;
+        }
+    }
 
     private function printArray($array){
         echo "<pre>".print_r($array, true)."</pre><br>";
