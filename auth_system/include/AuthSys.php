@@ -20,7 +20,7 @@ class AuthSys
         $st->execute();
 
         if($st->rowCount() > 0){
-            return TRUE;
+            return $st->fetch(PDO::FETCH_ASSOC);
         }
 
         return FALSE;
@@ -62,15 +62,16 @@ class AuthSys
 
 
     //Aggiunta nuovo utente nel database
-    public function addUser($post, $pw_hash){
+    public function addUser($post, $pw_hash, $token){
 
-        $query = "INSERT INTO Utenti(username, password, nome, email) VALUES (:username, :password, :nome, :email)";
+        $query = "INSERT INTO Utenti(username, password, nome, email) VALUES (:username, :password, :nome, :email, :token)";
         $st = $this->PDO->prepare($query);
 
         $st->bindParam(':username', $post['username'], PDO::PARAM_STR);
         $st->bindParam(':password', $pw_hash, PDO::PARAM_STR);
         $st->bindParam(':nome', $post['nome'], PDO::PARAM_STR);
         $st->bindParam(':email', $post['email'], PDO::PARAM_STR);
+        $st->bindParam(':token', $token, PDO::PARAM_STR);
 
         $st->execute();
     }
@@ -86,18 +87,19 @@ class AuthSys
 
         try{
 
-            //CONTROLLO ESISTENZA USERNAME ------------------------------------------------->
+            //CONTROLLO ESISTENZA USERNAME
             if($this->usernameExists($post['username'])) {
                 return 'L\'username inserito esiste già!';
             }
 
-            // CONTROLLO CORRETTAZZA CAMPI INSERITI ---------------------------------------->
+            // CONTROLLO CORRETTAZZA CAMPI INSERITI
             $this->checkModules($post);
 
-            // INSERIMENTO NEL DATABASE ---------------------------------------------------->
+            // INSERIMENTO NEL DATABASE
             $pw_hash = password_hash($post['cpassword'], PASSWORD_DEFAULT);
+            $token = bin2hex(random_bytes(32));
 
-            $this->addUser($post, $pw_hash);
+            $this->addUser($post, $pw_hash, $token);
 
         }
         catch(PDOException $exc){
@@ -115,35 +117,30 @@ class AuthSys
     //Controllo login
     public function login(string $username, string $password) {
 
-        // CONTROLLO REGISTRAZIONE ------------------------------------->
-        try{
-            $query = "SELECT * FROM Utenti WHERE username = :username";
-            $st = $this->PDO->prepare($query);
-
-            $st->bindParam(':username', $username, PDO::PARAM_STR);
-            $st->execute();
-        }
-        catch(PDOException $exc){
-            echo "Errore 'CONTROLLO REGISTRAZIONE' in {$exc->getFile()}, riga {$exc->getLine()}";
-        }
-
-        if($st->rowCount() === 0){
-            throw new Exception('Username o Password errati!');
-        }
-
-
-        // CONTROLLO PASSWORD ------------------------------------------------>
-        $user = $st->fetch(PDO::FETCH_ASSOC);
-
-        if(!password_verify($password, $user['password'])){
-            throw new Exception('Username o Password errati!');
-        }
-
-
-        // INSERIMENTO IN UtentiLoggati -------------------------------------->
-        $sessionId = session_id();
+        $user = $this->usernameExists($username);
 
         try{
+            // Ricerca username ------------------------------------->
+            if(!$user){
+                throw new Exception('Username o Password errati!');
+            }
+
+
+            // CONTROLLO PASSWORD ------------------------------------------------>
+            if(!password_verify($password, $user['password'])){
+                throw new Exception('Username o Password errati!');
+            }
+
+
+            //Controllo account attivo ------------------------------------->
+            if(!$user['active']){
+                throw new Exception('Account non attivo, controllare l\'email!');
+            }
+
+
+            // Inserimento in UtentiLoggati -------------------------------------->
+            $sessionId = session_id();
+        
             $query = "INSERT INTO UtentiLoggati(session_id, user_id) VALUES (:session, :id)";
             $st = $this->PDO->prepare($query);
 
@@ -151,9 +148,13 @@ class AuthSys
             $st->bindParam(':id', $user['id'], PDO::PARAM_INT);
 
             $st->execute();
+
         }
         catch(PDOException $exc){
-            echo "Errore 'INSERIMENTO IN UtentiLoggati' in {$exc->getFile()}, riga {$exc->getLine()}";
+            return 'Sembra esserci qualche errore. Riprova più tardi!';
+        }
+        catch(Exception $exc){
+            return $exc->getMessage();
         }
 
         return TRUE;
@@ -202,6 +203,10 @@ class AuthSys
         return TRUE;
     }
     
+
+    private function printArray($array){
+        echo "<pre>".print_r($array, true)."</pre><br>";
+    }
 }
 
 

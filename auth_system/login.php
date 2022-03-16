@@ -1,18 +1,15 @@
 <?php
 require_once './include/default.php';
 
-$error = FALSE;
+$result = "";
 
 if($_POST){
 
-    try{
-        if($auth->login($_POST['username'], $_POST['password'])){
-            header('location:./profilo.php');
-            exit;
-        }
-    }
-    catch(Exception $exc){
-        $error = TRUE;
+    $result = $auth->login($_POST['username'], $_POST['password']);
+
+    if($result === TRUE){
+        header('location:./profilo.php');
+        exit;
     }
 
 }
@@ -41,7 +38,7 @@ if($_POST){
     <hr>
 
 
-    <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
+    <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
 
         <div class="from-group">
             <input type="text" name="username" class="form-control" placeholder="Username">
@@ -51,10 +48,9 @@ if($_POST){
             <input type="password" name="password" class="form-control" placeholder="Password">
         </div>
 
-        <?php
-            if($error){
-                echo '<div class="alert alert-danger">Username o Password errati!</div>';
-            }
+        <?php 
+            if($result)
+                echo "<div class='alert alert-danger'>$result</div>";
         ?>
 
         <div class="from-group">
