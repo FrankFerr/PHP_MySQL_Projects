@@ -2,6 +2,7 @@
 
 include_once './include/default.php';
 
+
 if(!isset($_GET['id']) || !isset($_GET['token'])){
     header('location: index.php');
     exit;

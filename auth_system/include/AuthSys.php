@@ -249,6 +249,7 @@ class AuthSys
     }
     
 
+    //Conferma la registrazione attivando l'account
     public function confermaRegistrazione($id, $token){
         try{
             $query = 'SELECT id FROM Utenti WHERE id = :id AND token = :token';
@@ -256,6 +257,8 @@ class AuthSys
 
             $st->bindParam(':id', $id, PDO::PARAM_INT);
             $st->bindParam(':token', $token, PDO::PARAM_STR);
+
+            $st->execute();
 
             if($st->rowCount() == 0) return FALSE;
 
@@ -268,7 +271,7 @@ class AuthSys
         }
     }
 
-    private function printArray($array){
+    public function printArray($array){
         echo "<pre>".print_r($array, true)."</pre><br>";
     }
 }
