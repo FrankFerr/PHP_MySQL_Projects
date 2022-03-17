@@ -18,15 +18,17 @@
         Invece di cercare una parola intera possiamo fare in modo che il pattern combaci con diverse parole grazie a
         dei caratteri speciali:
 
-        - /fo+/ --> l'uso del carattere "+" sta ad indicare ogni parola che inizia per 'f' ed ha una o più 'o', a questo
+        - /fo+/ --> l'uso del carattere "+" permette di cercare parole che contengono una o più volte la lettera che
+          lo precede, nell'esempio quindi cerhiamo una parola che inizia per 'f' ed ha una o più 'o', a questo
           pattern combaceranno parole tipo fool, food, found etc...
 
-        - / fo* / --> l'uso del carattere "*" sta ad indicare ogni parola che inizia per 'f' ed ha zero o più 'o',
+        - / fo* / --> l'uso del carattere "*" permette di cercare parole che contengono zero o più volte la lettera
+          che lo precede, nell'esempio quindi cerhiamo una parola parola che inizia per 'f' ed ha zero o più 'o',
           a questo pattern combaceranno parole come le precedenti "fool, food, found" ma anche "fast, fine"
 
-        - /fo{2, 4}/ --> l'uso delle parentesi graffe ci permette di dare un limite ai caratteri che si possono trovare
-          dopo la 'f', in questo caso ({2, 4}) dopo la 'f' ci possono essere dalle 2 alle 4 'o', verranno prese in
-          considerazione parole come foot, foosball, fooool mentre found o foooool verranno saltate
+        - /fo{2, 4}/ --> l'uso delle parentesi graffe ci permette di dare un limite al numero di ripetizione alla 
+          lettera che le precede, in questo caso ({2, 4}) dopo la 'f' ci possono essere dalle 2 alle 4 'o', verranno
+          prese in considerazione parole come foot, foosball, fooool mentre found o foooool verranno saltate
 
 
         MODIFICATORI
