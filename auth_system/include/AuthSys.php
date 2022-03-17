@@ -13,10 +13,10 @@ class AuthSys
 
 
     //Controllo esistenza username
-    public function usernameExists(string $username){
+    public function usernameExists(string $username): bool {
         $query = 'SELECT * FROM Utenti WHERE username = :username';
         $st = $this->PDO->prepare($query);
-        
+
         $st->bindParam(':username', $username, PDO::PARAM_STR);
         $st->execute();
 
@@ -29,7 +29,7 @@ class AuthSys
 
 
     //Controllo correttezza moduli
-    public function checkModules(array $post){
+    public function checkModules(array $post): void {
 
         // USERNAME ---------------------------------------------------------->
         if( !(ctype_alnum($post['username']) && mb_strlen($post['username']) >= 8 && mb_strlen($post['username']) <= 15) ){
@@ -63,7 +63,7 @@ class AuthSys
 
 
     //Aggiunta nuovo utente nel database
-    public function addUser($post, $pw_hash, $token): int {
+    public function addUser(array $post, string $pw_hash, string $token): int {
 
         $query = "INSERT INTO Utenti(username, password, nome, email, token) VALUES (:username, :password, :nome, :email, :token)";
         $st = $this->PDO->prepare($query);
@@ -81,7 +81,7 @@ class AuthSys
 
 
     //Invio email attivazione
-    public function invioEmailAttivazione($toEmail, $link){
+    public function invioEmailAttivazione(string $toEmail, string $link): bool {
         $mail = &$this->mail;
 
         //Indica a PHPMailer di usare la sua classe SMTP per l'invio e non la funzione mail di PHP
@@ -118,7 +118,7 @@ class AuthSys
 
 
     //gestione registrazione nuovo utente
-    public function registraNuovoUtente($post) {
+    public function registraNuovoUtente(array $post): string {
 
         foreach ($post as $key => $value) {
             $post[$key] = trim($value);
@@ -160,7 +160,7 @@ class AuthSys
 
 
     //Controllo login
-    public function login(string $username, string $password) {
+    public function login(string $username, string $password): bool|string {
 
         $user = $this->usernameExists($username);
 
@@ -189,7 +189,7 @@ class AuthSys
 
             // Inserimento in UtentiLoggati -------------------------------------->
             $sessionId = session_id();
-        
+
             $query = "INSERT INTO UtentiLoggati(session_id, user_id) VALUES (:session, :id)";
             $st = $this->PDO->prepare($query);
 
@@ -212,7 +212,7 @@ class AuthSys
 
 
     //Effettua il ogout
-    public function logout() {
+    public function logout(): bool {
         try{
             $query = 'DELETE FROM UtentiLoggati WHERE session_id = :sessionId';
             $st = $this->PDO->prepare($query);
@@ -231,7 +231,7 @@ class AuthSys
 
 
     //Controllo login utente registrato
-    public function utenteLoggato() {
+    public function utenteLoggato(): bool {
         try{
             $query = 'SELECT * FROM UtentiLoggati WHERE session_id = :session';
             $st = $this->PDO->prepare($query);
@@ -244,17 +244,17 @@ class AuthSys
         catch(PDOException $exc){
             echo "Errore 'utenteLoggato' in {$exc->getFile()}, riga {$exc->getLine()}";
         }
-        
+
         if($st->rowCount() == 0){
             return FALSE;
         }
 
         return TRUE;
     }
-    
+
 
     //Conferma la registrazione attivando l'account
-    public function confermaRegistrazione($id, $token){
+    public function confermaRegistrazione(int $id, string $token): bool {
         try{
             $query = 'SELECT id FROM Utenti WHERE id = :id AND token = :token';
             $st = $this->PDO->prepare($query);
@@ -274,7 +274,6 @@ class AuthSys
             return FALSE;
         }
     }
-
 
 }
 
