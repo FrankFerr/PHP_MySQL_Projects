@@ -13,7 +13,7 @@ class AuthSys
 
 
     //Controllo esistenza username
-    public function usernameExists($username){
+    public function usernameExists(string $username){
         $query = 'SELECT * FROM Utenti WHERE username = :username';
         $st = $this->PDO->prepare($query);
         
@@ -29,7 +29,7 @@ class AuthSys
 
 
     //Controllo correttezza moduli
-    public function checkModules($post){
+    public function checkModules(array $post){
 
         // USERNAME ---------------------------------------------------------->
         if( !(ctype_alnum($post['username']) && mb_strlen($post['username']) >= 8 && mb_strlen($post['username']) <= 15) ){
@@ -97,10 +97,10 @@ class AuthSys
         //il tipo di messaggio da inviare
         $mail->isHTML(true);
         //Username e Password account gmail
-        $mail->Username = 'ferrantefrancesco878@gmail.com';
-        $mail->Password = 'kekko97gokart';
+        $mail->Username = 'FromEmail';
+        $mail->Password = 'FromEmailPass';
         //Setta l'email e il nome di chi la manda
-        $mail->setFrom('ferrantefracnesco878@gmail.com', 'MySite');
+        $mail->setFrom('FromEmail', 'MySite');
         //A chi inviare l'email
         $mail->AddAddress($toEmail);
         //Oggetto email
@@ -181,6 +181,10 @@ class AuthSys
             if(!$user['active']){
                 throw new Exception('Account non attivo, controllare l\'email!');
             }
+
+
+            //Pulizia vecchie sessioni attive --------------------------------->
+            $this->PDO->query("DELETE FROM UtentiLoggati WHERE user_id = {$user['id']}");
 
 
             // Inserimento in UtentiLoggati -------------------------------------->
@@ -271,9 +275,7 @@ class AuthSys
         }
     }
 
-    public function printArray($array){
-        echo "<pre>".print_r($array, true)."</pre><br>";
-    }
+
 }
 
 
