@@ -1,5 +1,7 @@
 <?php
 
+//CLASSE ASTRATTA GESTIONE AUTENTICAZIONE
+
 class AuthSys
 {
     private PDO $PDO;
