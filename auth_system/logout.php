@@ -1,7 +1,7 @@
 <?php
 require_once './include/default.php';
 
-if($auth->logout()){
+if($authLogin->logout()){
     header('location:./index.php');
     exit;
 }

@@ -5,7 +5,7 @@ $result = "";
 
 if($_POST){
 
-    $result = $auth->login($_POST['username'], $_POST['password']);
+    $result = $authLogin->login($_POST['username'], $_POST['password']);
 
     if($result === TRUE){
         header('location:./profilo.php');
@@ -49,7 +49,7 @@ if($_POST){
         </div>
 
         <?php 
-            if($result)
+            if($result !== "")
                 echo "<div class='alert alert-danger'>$result</div>";
         ?>
 

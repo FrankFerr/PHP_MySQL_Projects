@@ -8,7 +8,7 @@ if(!isset($_GET['id']) || !isset($_GET['token'])){
     exit;
 }
 
-$ris = $auth->confermaRegistrazione($_GET['id'], $_GET['token']);
+$ris = $authReg->confermaRegistrazione($_GET['id'], $_GET['token']);
 
 if($ris === FALSE){
     header('location: index.php');

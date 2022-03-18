@@ -4,7 +4,7 @@ require_once './include/default.php';
 $result = "";
 
 if($_POST){
-    $result = $auth->registraNuovoUtente($_POST);
+    $result = $authReg->registraNuovoUtente($_POST);
 }
 ?>
 
