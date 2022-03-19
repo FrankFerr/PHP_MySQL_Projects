@@ -12,9 +12,14 @@ class AuthSysLogin extends AuthSys{
     //Controllo login
     public function login(string $username, string $password): bool|string {
 
-        $user = $this->usernameExists($username);
-
         try{
+            //SANIFICAZIONE
+            $username = $this->Secure->sanitizeInput($username);
+            $password = $this->Secure->sanitizeInput($password);
+
+
+            $user = $this->usernameExists($username);
+
             // Ricerca username ------------------------------------->
             if(!$user){
                 throw new Exception('Username o Password errati!');

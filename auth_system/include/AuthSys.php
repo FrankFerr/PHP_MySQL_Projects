@@ -5,10 +5,11 @@
 abstract class AuthSys{
 
     protected PDO $PDO;
+    protected AuthSysSecure $Secure = new AuthSysSecure();
 
 
     //Controllo esistenza username
-    public function usernameExists(string $username): array|bool {
+    protected function usernameExists(string $username): array|bool {
         $query = 'SELECT * FROM Utenti WHERE username = :username';
         $st = $this->PDO->prepare($query);
 

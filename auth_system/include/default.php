@@ -8,6 +8,7 @@ include_once './include/db.php';
 include_once './include/AuthSys.php';
 include_once './include/AuthSysReg.php';
 include_once './include/AuthSysLogin.php';
+include_once './include/AuthSysSecure.php';
 include_once './lib/PHPMailer/src/PHPMailer.php';
 include_once './lib/PHPMailer/src/SMTP.php';
 include_once './lib/PHPMailer/src/POP3.php';

@@ -19,32 +19,34 @@ class AuthSysReg extends AuthSys{
     //gestione registrazione nuovo utente
     public function registraNuovoUtente(array $post): string {
 
-        foreach ($post as $key => $value) {
-            $post[$key] = trim($value);
-        }
-
-
         try{
 
+            //SANIFICAZIONE
+            $campiForm = ['username', 'password', 'cpassword', 'nome', 'email'];
+
+            foreach($campiForm as $campo){
+                $cleanPost[$campo] = $this->Secure->sanitizeInput($post[$campo]);
+            }
+
             //CONTROLLO ESISTENZA USERNAME
-            if($this->usernameExists($post['username'])) {
+            if($this->usernameExists($cleanPost['username'])) {
                 return 'L\'username inserito esiste già!';
             }
 
             // CONTROLLO CORRETTAZZA CAMPI INSERITI
-            $this->checkModules($post);
+            $this->checkModules($cleanPost);
 
             // INSERIMENTO NEL DATABASE
-            $pw_hash = password_hash($post['cpassword'], PASSWORD_DEFAULT);
+            $pw_hash = password_hash($cleanPost['cpassword'], PASSWORD_DEFAULT);
             $token = bin2hex(random_bytes(32));
 
             //PREPARAZIONE EMAIL ATTIVAZIONE
-            $id = $this->addUser($post, $pw_hash, $token);
+            $id = $this->addUser($cleanPost, $pw_hash, $token);
             $dataEmail = ['id' => $id, 'token' => $token];
             $link = "http://localhost/Projects/auth_system/attivazione.php?".http_build_query($dataEmail);
 
             //INVIO EMAIL
-            $this->invioEmailAttivazione($post['email'], $link);
+            $this->invioEmailAttivazione($cleanPost['email'], $link);
         }
         catch(PDOException $exc){
             return 'Sembra esserci qualche problema, riprova più tardi.';
