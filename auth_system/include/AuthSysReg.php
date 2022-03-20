@@ -10,10 +10,10 @@ class AuthSysReg extends AuthSys{
     private PHPMailer $mailer;
 
 
-    public function __construct(PDO $PDOconn, PHPMailer $mailer){
+    public function __construct(PDO $PDOconn, PHPMailer $mailer, AuthSysSecure &$secure){
         $this->PDO = $PDOconn;
         $this->mailer = $mailer;
-        $this->Secure = new AuthSysSecure();
+        $this->Secure = $secure;
     }
 
 

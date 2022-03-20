@@ -4,9 +4,9 @@
 
 class AuthSysLogin extends AuthSys{
 
-    public function __construct(PDO $PDOconn){
+    public function __construct(PDO $PDOconn, AuthSysSecure &$secure){
         $this->PDO = $PDOconn;
-        $this->Secure = new AuthSysSecure();
+        $this->Secure = $secure;
     }
 
 
@@ -43,6 +43,9 @@ class AuthSysLogin extends AuthSys{
             $this->PDO->query("DELETE FROM UtentiLoggati WHERE user_id = {$user['id']}");
 
 
+            $this->Secure->regenSession();
+
+
             // Inserimento in UtentiLoggati -------------------------------------->
             $sessionId = session_id();
 
@@ -77,6 +80,8 @@ class AuthSysLogin extends AuthSys{
 
             $st->bindParam(':sessionId', $sessionId, PDO::PARAM_STR);
             $st->execute();
+
+            $this->Secure->destroySession();
         }
         catch(PDOException $exc){
             echo "Errore 'logout' in {$exc->getFile()}, riga {$exc->getLine()}";

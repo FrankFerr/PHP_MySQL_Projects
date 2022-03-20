@@ -1,5 +1,6 @@
 <?php
 require_once './include/default.php';
+
 ?>
 
 <!DOCTYPE html>
