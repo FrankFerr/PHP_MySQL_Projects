@@ -6,6 +6,7 @@ class AuthSysLogin extends AuthSys{
 
     public function __construct(PDO $PDOconn){
         $this->PDO = $PDOconn;
+        $this->Secure = new AuthSysSecure();
     }
 
 
@@ -14,13 +15,13 @@ class AuthSysLogin extends AuthSys{
 
         try{
             //SANIFICAZIONE
-            $username = $this->Secure->sanitizeInput($username);
-            $password = $this->Secure->sanitizeInput($password);
+            $username = $this->Secure->sanitizeInput($username, 'str');
+            $password = $this->Secure->sanitizeInput($password, 'str');
 
-
+            
+            // Ricerca username ------------------------------------->
             $user = $this->usernameExists($username);
 
-            // Ricerca username ------------------------------------->
             if(!$user){
                 throw new Exception('Username o Password errati!');
             }

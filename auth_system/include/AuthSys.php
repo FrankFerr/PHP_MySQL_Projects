@@ -5,7 +5,7 @@
 abstract class AuthSys{
 
     protected PDO $PDO;
-    protected AuthSysSecure $Secure = new AuthSysSecure();
+    protected AuthSysSecure $Secure;
 
 
     //Controllo esistenza username

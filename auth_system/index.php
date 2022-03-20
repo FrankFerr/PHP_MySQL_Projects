@@ -21,6 +21,11 @@ require_once './include/default.php';
 
     <a type='button' class='btn btn-info' href="registrati.php">Registrati</a>
     <a type='button' class='btn btn-info' href="login.php">Login</a>
+    <?php
+        if($authLogin->utenteLoggato()){
+            echo "<a type='button' class='btn btn-info' href='profilo.php'>Profilo</a>";
+        }
+    ?>
     <hr>
 
 

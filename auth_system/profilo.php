@@ -5,6 +5,9 @@ if(!$authLogin->utenteLoggato()){
     header('location:./index.php');
     exit;
 }
+
+$_SESSION['csrf'] = AuthSysSecure::getTokenCSRF();
+
 ?>
 
 <!DOCTYPE html>
@@ -28,6 +31,8 @@ if(!$authLogin->utenteLoggato()){
     <a type='button' class='btn btn-info' href="registrati.php">Registrati</a>
     <a type='button' class='btn btn-info' href="login.php">Login</a>
     <hr>
+
+    <a type='button' class='btn btn-danger' href="cancella-account.php">Cancella account</a>
 
 
 </body>

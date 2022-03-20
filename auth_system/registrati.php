@@ -28,6 +28,11 @@ if($_POST){
     
     <a type='button' class='btn btn-info' href="index.php">Home</a>
     <a type='button' class='btn btn-info' href="login.php">Login</a>
+    <?php
+        if($authLogin->utenteLoggato()){
+            echo "<a type='button' class='btn btn-info' href='profilo.php'>Profilo</a>";
+        }
+    ?>
     <hr>
 
     <?php echo "<p><strong>$result</strong></p>"; ?>
