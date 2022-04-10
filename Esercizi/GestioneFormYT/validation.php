@@ -21,7 +21,7 @@ function form()
 
         //CONTROLLO NOME
         //FILTER_SANITIZE_STRING è deprecato, usare al suo posto htmlspecialchars()
-        $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_STRING);
+        $nome = htmlspecialchars($_POST['nome']);
         if(strlen($nome) == 0)
         {
             $status['error'] = true;
@@ -126,7 +126,7 @@ function upload(&$status)
         if(!in_array($ext, FORMATI_ACCETTATI))
         {
             $status['error'] = true;
-            $status['messageUpload'] = "<p id='error'>Il formato del $ext non è accettato</p>";
+            $status['messageUpload'] = "<p id='error'>Il formato $ext non è accettato</p>";
 
             return;
         }
